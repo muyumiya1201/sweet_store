@@ -1,0 +1,22 @@
+<div class="row">
+  <ng-container *ngFor="let item of itemList; let i=index" >
+  <div class="col-md-4">
+    <div class="card mb-5" *ngIf="i<3">
+      <div class="card-img-top"
+          style="height: 315px; background-image: url({{item.picture}});">
+          <div class="item-tag">
+              <strong>本日精選</strong>
+          </div>
+      </div>
+      <div class="card-body">
+          <h5 class="card-title">{{item.name}}</h5>
+          <p class="card-text"><strong class="d-flex justify-content-end">還剩{{ item.quantity }}個</strong></p>
+          <p class="card-text"><strong class="d-flex justify-content-end">{{item.price | currency:'TWD'}}</strong></p>
+      </div>
+      <a class="h4 mb-0 btn-primary-lighter card-footer d-flex justify-content-center" (click)="addIntoCart(item)">
+          加入購物車
+      </a>
+  </div>
+  </div>
+</ng-container>
+</div>

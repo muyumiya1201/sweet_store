@@ -1,0 +1,32 @@
+<div class="container mb-3">
+  <div class="header">
+    <div class="header-main-image bg-cover"
+      style="background-image: url(https://images.unsplash.com/photo-1512484457149-266d165a4eca?ixlib=rb-0.3.5&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;s=786581a33fd6c9343735655439ce2e5a&amp;auto=format&amp;fit=crop&amp;w=1380&amp;q=80)">
+      <img src="{{ imageUrl }}/lg-想吃甜點是不需要理由的.svg" width="89" class="header-image-context" alt="">
+    </div>
+  </div>
+<section class="container mt-5">
+  <div class="row">
+    <div class="col-md-4 mb-5">
+      <h2 class="bg-primary text-white text-center h4 py-3 mb-0">甜點類別</h2>
+      <div class="list-group text-center">
+        <a [routerLink]="['/products']" routerLinkActive="active" class="list-group-item list-group-item-action h4">
+          所有甜點（{{allTotal}}）
+        </a>
+        <a [routerLink]="['today']" routerLinkActive="active" class="list-group-item list-group-item-action h4">本日精選（{{todayTotal}}）</a>
+        <a [routerLink]="['hot']" routerLinkActive="active" class="list-group-item list-group-item-action h4">人氣推薦（{{hotTotal}}）</a>
+        <a [routerLink]="['new']" routerLinkActive="active" class="list-group-item list-group-item-action h4">新品上市（{{newTotal}}）</a>
+        <a class="list-group-item list-group-item-action h4 disabled">絕版品</a>
+      </div>
+      <div>
+        <form>
+          <input type="text" placeholder="Search" (keyup)="onKey($event)">
+          <button (click)="search(keyword)" routerLinkActive="router-link-active"  style="float: right;" class="btn btn-primary">Search</button>
+        </form>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</section>

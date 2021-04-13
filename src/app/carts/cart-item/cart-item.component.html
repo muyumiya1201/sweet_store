@@ -1,0 +1,33 @@
+<div class="cart-row d-flex flex-column flex-md-row py-3">
+  <div class="d-flex align-items-center flex-grow-1 mr-md-3">
+    <div class="my-4 mr-4 flex-grow-1 flex-md-grow-0">
+      <div class="cart-image"
+        style="background-image: url({{item.picture}})">
+      </div>
+    </div>
+    <div class="d-flex align-items-md-center flex-column flex-md-row flex-md-grow-1">
+      <div class="flex-fill mr-md-4">
+        <span class="h5">{{item.name}}</span><br>
+        <span>{{item.price | currency:'TWD'}}</span><br><br>
+        <span>還剩{{item.quantity}}個</span>
+      </div>
+      <div class="ml-md-auto mt-3 mt-md-0" style="width: 145px;">
+        <div class="input-group carts-input-group">
+          <div class="input-group-prepend">
+            <button type="button"
+              class="btn btn-brand-light text-primary-light material-icons text-base-size" (click)="decrease(item)">remove</button>
+          </div>
+          <input type="text" class="form-control" value="{{item.quantityInCart}}">
+          <div class="input-group-append">
+            <button type="button" [disabled]="outOfQuantity"
+              class="btn btn-brand-light text-primary-light material-icons text-base-size" (click)="increase(item)">add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="price ml-md-auto align-items-center py-3 justify-content-end d-flex flex-md-row-reverse">
+     <button class="btn d-none d-md-block" (click)="deleteP(item)"><span class="material-icons">delete_outline</span></button>
+    <span class="h5 mb-0 mr-md-3">{{item.price * item.quantityInCart | currency:'TWD'}}</span>
+  </div>
+</div>

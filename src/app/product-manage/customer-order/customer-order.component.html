@@ -1,0 +1,34 @@
+<h2>顧客訂單</h2>
+<div class="table-responsive">
+  <table class="table table-striped table-sm">
+    <thead class="thead-dark">
+      <tr>
+        <th>訂單人姓名</th>
+        <th>訂單內容</th>
+        <th>下單時間</th>
+        <th>遞送地址</th>
+        <th>總金額</th>
+        <th>訂單操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of orderList;let i = index"  [ngStyle]="{'background-color':color[order.status]}">
+        <td>{{order.name}}</td>
+        <td><app-print-order [contents] = "order.orderContent"></app-print-order></td>
+        <td>{{order.orderTime | date:'yyyy/mm/dd hh:mm'}}</td>
+        <td>{{order.address}}</td>
+        <td>{{order.total | currency: 'TWD'}}</td>
+        <td>
+          <div class="btn-group mr-2" id={{order.orderId}} *ngIf="!order.status">
+            <button type="button" class="btn btn-sm btn-outline-secondary" [disabled]="disablebutton[i]" (click)="setOrderStatus(order.orderId, 1, i)">接受</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary" [disabled]="disablebutton[i]" (click)="setOrderStatus(order.orderId, 2, i)">拒絕</button>
+          </div>
+          <div class="btn-group mr-2" id={{order.orderId}} [ngSwitch]="order.status">
+            <button type="button" class="btn btn-sm btn-secondary" [disabled]="true" *ngSwitchCase="'1'">已接受</button>
+            <button type="button" class="btn btn-sm btn-secondary" [disabled]="true" *ngSwitchCase="'2'">已拒絕</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

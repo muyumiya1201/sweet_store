@@ -1,0 +1,6 @@
+<h1 class="h4 text-center bg-primary-lighter p-3">您的購物車</h1>
+<ng-container *ngFor="let item of cartList">
+  <app-cart-item [item]="item" (quantityInCartChange)="passToParent($event)"></app-cart-item>
+</ng-container>
+
+

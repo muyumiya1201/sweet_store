@@ -1,0 +1,17 @@
+
+<div class="card">
+  <div class="card-img-top" style="height: 315px; background-image: url({{item.picture}});">
+    <div class="item-tag">
+      <strong>本日精選</strong>
+    </div>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{ item.name }}</h5>
+    <p class="card-text"><strong class="d-flex justify-content-end">還剩{{ item.quantity }}個</strong></p>
+    <p class="card-text"><strong class="d-flex justify-content-end">{{ item.price | currency:'TWD'}}</strong>
+    </p>
+  </div>
+  <button class="h4 mb-0 btn-primary-lighter card-footer d-flex justify-content-center" [disabled]="check(item)" (click)="addProduct(item)">
+    加入購物車
+  </button>
+</div>

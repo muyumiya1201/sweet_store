@@ -1,0 +1,192 @@
+<h2 style="display: inline-block;">商品總覽</h2>
+<button type="button" class="btn btn-sm btn-outline-secondary" style="float: right;"
+  (click)="openModal(content)">新增商品</button>
+<button type="button" class="btn btn-sm btn-outline-secondary" style="float: right;"
+  (click)="openEditTag(editTag)">編輯標籤</button>
+
+<div class="table-responsive">
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Tags</th>
+        <th>Picture</th>
+        <th>Operation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of itemList">
+        <td>{{item.id}}</td>
+        <td>{{item.name}}</td>
+        <td>{{item.price}}</td>
+        <td>{{item.quantity}}</td>
+        <td>
+          <div>
+            <button type="button" class="btn btn-sm btn-outline-secondary"
+              (click)="openEditProductTag(editProductTag, item.id)">編輯</button>
+          </div>
+        </td>
+        <td>
+          <div class="btn-group mr-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary"
+              (click)="openPicture(viewPicture, item.id)">查看</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary"
+              (click)="upload(uploadPicture, item.id)">上傳</button>
+          </div>
+        </td>
+        <td>
+          <div class="btn-group mr-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary" (click)="update(item, content)">修改</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary" (click)="deleteP(item)">刪除</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- modal area -->
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{ operation }}商品</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="col-md-8" style="margin:0px auto;">
+      <form [formGroup]="checkoutForm" (ngSubmit)="updateP(checkoutForm.value)" enctype="multipart/form-data">
+        <div class="form-group">
+          <div class="input-group">
+            <div class="form-group">
+              <label for="product-name">Product Name</label>
+              <input class="form-control" formControlName="name" required>
+            </div>
+            <div class="form-group">
+              <label for="price">Price</label>
+              <input class="form-control" formControlName="price" type="number" min="1" required>
+            </div>
+            <div class="form-group">
+              <label for="Quantity">Quantity</label>
+              <input class="form-control" type="number" formControlName="quantity" min="1">
+            </div>
+            <button class="btn btn-lg btn-block" style="background: #ffe180; border-color: #ffe180;">
+              <h1 class="h4 text-center btn-green-text" (click)="modal.close()">確認</h1>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template #viewPicture let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">圖片</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" id="modal-show-picture">
+    <img src="{{showPicture}}" style="width: 50%;">
+  </div>
+</ng-template>
+
+<ng-template #uploadPicture let-modal>
+  <div class="modal-body" id="modal-upload-picture">
+    <form action="/products/upload" method="POST" enctype="multipart/form-data" accept="image/*">
+      <label for="file">上傳圖片</label><br>
+      <input type="file" id="file" name="file" (change)="uploading($event)"><br><br>
+      <input type="submit" style="float: right;" (click)="send()">
+    </form>
+  </div>
+</ng-template>
+
+
+<ng-template #editProduct let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="edit-product">{{ operation }}商品</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="col-md-8" style="margin:0px auto;">
+      <form [formGroup]="checkoutForm" (ngSubmit)="updateP(checkoutForm.value)" enctype="multipart/form-data">
+        <div class="form-group">
+          <div class="input-group">
+            <button class="btn btn-lg btn-block" style="background: #ffe180; border-color: #ffe180;">
+              <h1 class="h4 text-center btn-green-text" (click)="modal.close()">確認</h1>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template #editProductTag let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="edit-product-tag-title">Tags</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" id="edit-product-tag" (change)="checkProductTag($event)">
+    <div *ngFor="let tag of tagList">
+      <input type="checkbox" id={{tag}} name={{tag}} value={{tag}} [checked]="hasTag(tag)">
+      <label for={{tag}}>&nbsp;{{tag}}</label><br>
+    </div>
+    <button class="btn btn-lg btn-block" style="background: #ffe180; border-color: #ffe180;">
+      <h1 class="h4 text-center btn-green-text" (click)="setProductTag()">確認</h1>
+    </button>
+  </div>
+</ng-template>
+
+
+<ng-template #editTag let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="edit-tag-title">Tags</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" id="edit-tag">
+    <div class="table-responsive">
+      <table class="table table-striped table-sm">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Tags</th>
+            <th>Operation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tag of tagList; let i = index">
+            <td>{{i+1}}</td>
+            <td><input type="text" value={{tag}} (keyup)="onKey($event)"></td>
+            <td>
+              <div class="btn-group mr-2">
+                <button type="button" class="btn btn-sm btn-outline-secondary"
+                  (click)="updateTag(tag, tmpTag)">修改</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary" (click)="deleteTag(tag)">刪除</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="新增標籤" aria-label="新增標籤" aria-describedby="basic-addon2"
+        (keyup)="onKey($event)">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" (click)="newTag(tmpTag)">新增</button>
+      </div>
+    </div>
+  </div>
+</ng-template>

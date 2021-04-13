@@ -1,0 +1,11 @@
+  <!--
+<div class="card" style="width:75%;">
+    <ul class="list-group list-group-flush" *ngFor="let content of contents">
+      <li class="list-group-item">{{ content.name }}: {{ content.quantityInCart }}個</li>
+    </ul>
+  </div>
+-->
+<!-- -->
+ <div *ngFor="let content of contents">
+    <p>{{ content.name }}: {{ content.quantityInCart }}個</p>
+ </div>
