@@ -11,7 +11,7 @@ app.get('/', function(req,res) {
 
 // res.sendFile(path.join(__dirname+'/dist/<name-of-app>/index.html'));
 // res.sendFile(path.join('./front-end/dist/<name-of-app>/index.html'));
-res.sendFile('/dist/<name-of-app>/index.html', { root: __dirname });
+res.sendFile('/dist/<name-of-app>/index.html');
 });
 
 // Start the app by listening on the default Heroku port
