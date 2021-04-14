@@ -1,3 +1,13 @@
+# 可能會有幫助的專案說明
+
+- demo.war<br>
+  佈署到tomcat底下，開發使用版本為9.0.31<br>
+  ProductController內的uploadPicture1，圖片儲存路徑記得修改
+  
+- sweet.sql<br>
+  後台資料庫，開發使用資料庫為mariaDB<br>
+  application.properties內設置的資料庫帳密記得修改
+
 # Sweet
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.7.
@@ -25,13 +35,3 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
-
-
-## 可能會有幫助的專案說明
-
-- demo.war<br>
-  佈署到tomcat底下，開發使用版本為9.0.31<br>
-  ProductController內的uploadPicture1，圖片儲存路徑記得修改
-  
-- sweet.sql<br>
-  後台資料庫，使用mariaDB
