@@ -2,6 +2,7 @@
   "name": "sweet",
   "version": "0.0.0",
   "scripts": {
+    "preinstall": "npm install stompjs",
     "postinstall": "ng build --aot --prod",
     "ng": "ng",
     "start": "node server.js",

@@ -14,7 +14,7 @@ export class MessageLibService {
   public stompClient!: { connect: (arg0: {}, arg1: (frame: any) => void) => void; subscribe: (arg0: string, arg1: (message: any) => void) => void; send: (arg0: string, arg1: {}, arg2: any) => void; };
 
   initializeWebSocketConnection() {
-    const serverUrl = 'http://localhost:8080/socket';
+    const serverUrl = 'https://localhost:8080/socket';
     const socket = new SockJS(serverUrl);
     this.stompClient = Stomp.over(socket);
     const that = this;
